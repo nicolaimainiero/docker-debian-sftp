@@ -1,6 +1,6 @@
 FROM debian:stable-slim
 
-LABEL author Cimlah
+LABEL author "Nicolai Mainiero"
 
 RUN \
 apt update && \
