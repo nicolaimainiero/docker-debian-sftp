@@ -31,6 +31,16 @@ jobs:
       packages: write
 
     steps:
+      - name: Dump github context
+        run:   echo "$GITHUB_CONTEXT"
+        shell: bash
+        env:
+         GITHUB_CONTEXT: ${{ toJson(github) }}
+         
+      - name: Image name
+        run:   echo "$IMAGE_NAME"
+        shell: bash
+    
       - name: Checkout repository
         uses: actions/checkout@v2
 
