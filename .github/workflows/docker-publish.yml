@@ -19,7 +19,7 @@ env:
   # Use docker.io for Docker Hub if empty
   REGISTRY: docker.io
   # github.repository as <account>/<repo>
-  IMAGE_NAME: ${{ secrets.DOCKER_USERNAME }}/ ${{ 'docker-debian-sftp' }}
+  IMAGE_NAME: ${{ 'nmainiero' }}/ ${{ 'docker-debian-sftp' }}
 
 
 jobs:
