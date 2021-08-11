@@ -6,7 +6,7 @@ RUN \
 apt update && \
 apt upgrade -y
 ARG DEBIAN_FRONTEND=noninteractive
-ENV TZ=Europe/Warsaw
+ENV TZ=Europe/Berlin
 RUN apt install -y tzdata openssh-server openssh-sftp-server acl && \
 groupadd sftp-users && mkdir /workdir
 COPY entrypoint.sh /workdir/
