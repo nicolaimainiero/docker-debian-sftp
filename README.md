@@ -6,7 +6,6 @@ DockerHub: https://hub.docker.com/repository/docker/cimlah/docker-debian-sftp
 # What is it?
 Docker-debian-sftp is a Docker container running sftp server.
 Not only you get isolation from the side of Docker, but also there is chroot in sshd_config set-up. <br/>
-It is meant to run alongside with [Filestash](https://github.com/mickael-kerjean/filestash), but can very simply edit *docker-compose.yml* not to use Filestash.
 
 # How to use it?
 While in main directory of this repo, you can simply execute command: `docker-compose up -d` or copy content of my *docker-compose.yml*:
@@ -27,39 +26,6 @@ services:
         volumes: 
             - /path/you/want/to/use:/home
 
-    filestash:
-        image: machines/filestash
-        restart: unless-stopped
-        hostname: filestash
-        container_name: filestash
-        ports:
-            - "8334:8334"
-        environment: 
-            - APPLICATION_URL=
-            - GDRIVE_CLIENT_ID=<gdrive_client>
-            - GDRIVE_CLIENT_SECRET=<gdrive_secret>
-            - DROPBOX_CLIENT_ID=<dropbox_key>
-            - ONLYOFFICE_URL=http://onlyoffice
-```
-
-## Don't want to use filestash?
-If you don't want to use Filestash just delete lines of code associated with filestash service or copy:
-
-``` yml
-version: '3.3'
-
-services:
-    debian-sftp:
-        image: cimlah/docker-debian-sftp:latest
-        restart: unless-stopped
-        hostname: debian-sftp
-        container_name: debian-sftp
-        ports:
-            - "2800:22"
-        stdin_open: true
-        tty: true
-        volumes: 
-            - /path/you/want/to/use:/home
 ```
 
 ## Remember, change mount point, or delete it completely if you don't want to mount anything
@@ -74,6 +40,3 @@ Please, read my script to know what permissions are set by it.
 # Can I customise it for my needs?
 Of course, if you want to change something, for example in *sshd_config*, do it and then build the image yourself. In directory *build_it_yourself* you have everything needed to customise and build the image. <br/>
 To build the image, execute command: `docker build -t *name of your image* .` while you're inside *build_it_yourself* directory.
-
-# Does it even work?
-Yes, it does. You can check it on my demo, visit: https://files.cimlah.art and select *PUBLIC* tab.
