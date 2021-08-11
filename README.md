@@ -1,7 +1,7 @@
 # docker-debian-sftp
 
-GitHub: https://github.com/Cimlah/docker-debian-sftp <br/>
-DockerHub: https://hub.docker.com/repository/docker/cimlah/docker-debian-sftp
+GitHub: https://github.com/nicolaimainiero/docker-debian-sftp<br/>
+DockerHub: https://hub.docker.com/repository/docker/nmainiero/docker-debian-sftp
 
 # What is it?
 Docker-debian-sftp is a Docker container running sftp server.
@@ -15,7 +15,7 @@ version: '3.3'
 
 services:
     debian-sftp:
-        image: cimlah/docker-debian-sftp:latest
+        image: naminiero/docker-debian-sftp:latest
         restart: unless-stopped
         hostname: debian-sftp
         container_name: debian-sftp
