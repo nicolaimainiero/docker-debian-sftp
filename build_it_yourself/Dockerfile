@@ -21,6 +21,7 @@ RUN /usr/local/bin/default_user
 COPY sshd_config /etc/ssh/
 COPY ./keys/*_key /etc/ssh/
 COPY ./keys/*.pub /etc/ssh/
+RUN chmod 0600 /etc/ssh/*_key
 
 WORKDIR /workdir
 CMD ./entrypoint.sh
