@@ -40,3 +40,11 @@ Please, read my script to know what permissions are set by it.
 # Can I customise it for my needs?
 Of course, if you want to change something, for example in *sshd_config*, do it and then build the image yourself. In directory *build_it_yourself* you have everything needed to customise and build the image. <br/>
 To build the image, execute command: `docker build -t *name of your image* .` while you're inside *build_it_yourself* directory.
+
+# SSH Host Key generated with
+
+RSA: `ssh-keygen -f ssh_host_rsa_key  -t rsa -b 4096 -C "root@buildkitsandbox"`
+ECDSA: `ssh-keygen -f ssh_host_ecdsa_key  -t ecdsa -C "root@buildkitsandbox"`
+ED25519: `ssh-keygen -f ssh_host_ed25519_key  -t ed25519 -C "root@buildkitsandbox"`
+
+No passphrase is set.
