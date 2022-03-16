@@ -29,18 +29,18 @@ jobs:
       packages: write
 
     steps:
-      - name: Dump github context
-        run:   echo "$GITHUB_CONTEXT"
-        shell: bash
-        env:
-         GITHUB_CONTEXT: ${{ toJson(github) }}
-         
       - name: Image name
         run:   echo "$IMAGE_NAME"
         shell: bash
     
       - name: Checkout repository
         uses: actions/checkout@v2
+
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v1
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v1
 
       # Login against a Docker registry except on PR
       # https://github.com/docker/login-action
@@ -56,16 +56,22 @@ jobs:
       # https://github.com/docker/metadata-action
       - name: Extract Docker metadata
         id: meta
-        uses: docker/metadata-action@98669ae865ea3cffbcbaa878cf57c20bbf1c6c38
+        uses: docker/metadata-action@v3
         with:
           images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
+          tags: |
+            type=ref,enable=true,priority=600,prefix=,suffix=,event=branch
+            type=ref,enable=true,priority=600,prefix=,suffix=,event=tag
+            type=ref,enable=true,priority=600,prefix=pr-,suffix=,event=pr
 
       # Build and push Docker image with Buildx (don't push on PR)
       # https://github.com/docker/build-push-action
       - name: Build and push Docker image
-        uses: docker/build-push-action@ad44023a93711e3deb337508980b4b5e9bcdc5dc
+        uses: docker/build-push-action@v2
         with:
           context: ./build_it_yourself/
+          platforms: linux/amd64,linux/arm64
           push: ${{ github.event_name != 'pull_request' }}
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
+
